@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Format List to String</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      display: flex;
+      gap: 40px;
+      max-width: 1000px;
+      width: 100%;
+    }
+    .box {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    textarea {
+      width: 100%;
+      height: 300px;
+      padding: 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      resize: vertical;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      align-self: flex-start;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    h3 {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- <h3>List Item Quoter</h3> -->
+  <div class="container">
+    <div class="box">
+      <h3>Input</h3>
+      <button onclick="formatList()">Format</button>
+      <textarea id="inputArea" placeholder="Paste one value per line..."></textarea>
+    </div>
+    <div class="box">
+      <h3>Output</h3>
+      <button onclick="copyOutput()">Copy</button>
+      <textarea id="outputArea" readonly placeholder="Formatted result..."></textarea>
+    </div>
+  </div>
+
+  <script>
+    function formatList() {
+      const input = document.getElementById('inputArea').value;
+      const lines = input.split(/\r?\n/).map(line => line.trim()).filter(line => line !== '');
+      const formatted = lines.map(item => `"${item}"`).join(', ');
+      document.getElementById('outputArea').value = formatted;
+    }
+
+    function copyOutput() {
+      const output = document.getElementById('outputArea');
+      output.select();
+      output.setSelectionRange(0, 99999); // For mobile
+      document.execCommand('copy');
+      alert('Copied to clipboard!');
+    }
+  </script>
+</body>
+</html>
